@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: dev
+
+server:
+  port: 8088
+
+own:
+  property: 42
+
+---
+spring:
+  profiles: dev
+  datasource:
+    username: sa
+    url: jdbc:hsqldb:mem:db/mp;hsqldb.log_data=false
+    password:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+
+---
+spring:
+  profiles: uat
+
+---
+spring:
+  profiles: prod
+
+
+
