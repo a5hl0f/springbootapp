@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,7 +17,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Entity(name = Country.TBL_NAME)
+@Entity
+@Table(name = Country.TBL_NAME)
 public class Country extends AbstractEntity<Long> {
     public static final String TBL_NAME="country";
     public static final String FLD_NAME="name";

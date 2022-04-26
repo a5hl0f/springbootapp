@@ -14,6 +14,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,7 +22,8 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = false)
 @NoArgsConstructor
-@Entity(name = Client.TBL_NAME)
+@Entity
+@Table(name =  Client.TBL_NAME)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @SuperBuilder
 public abstract class Client extends AbstractEntity<Long> {
@@ -38,4 +40,6 @@ public abstract class Client extends AbstractEntity<Long> {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = FLD_COUNTRY)
     private Country country;
+
+    private Address address;
 }

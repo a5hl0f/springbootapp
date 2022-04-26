@@ -8,13 +8,15 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Entity(name = Company.TBL_NAME)
+@Entity
+@Table(name = Company.TBL_NAME)
 @DiscriminatorValue("company")
 @SuperBuilder
 public class Company extends Client {
