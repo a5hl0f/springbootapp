@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.mik.spring.entity.AbstractEntity;
+import org.mik.spring.entity.Address;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -27,8 +28,9 @@ import java.util.Set;
 @SuperBuilder
 @Table(name = MikUser.TBL_NAME)
 public class MikUser extends AbstractEntity<Long> {
+
     public static final String TBL_NAME="users";
-    public static final String FLD_USERNAME="username";
+    public static final String FLD_USER_NAME="username";
     public static final String FLD_PASSWORD="password";
     public static final String FLD_FIRST_NAME="first_name";
     public static final String FLD_LAST_NAME="last_name";
@@ -37,7 +39,7 @@ public class MikUser extends AbstractEntity<Long> {
     public static final String FLD_ACTIVE="active";
 
     @NotNull
-    @Column(name = FLD_USERNAME, unique = true, updatable = false, nullable = false)
+    @Column(name = FLD_USER_NAME, nullable = false, unique = true, updatable = false)
     private String userName;
 
     @NotNull
@@ -45,43 +47,45 @@ public class MikUser extends AbstractEntity<Long> {
     private String password;
 
     @NotNull
-    @Size(min = 3, message = "min l is 3")
+    @Size(min = 3, message = "FirstName must be at least 3 character length")
     @Column(name = FLD_FIRST_NAME, nullable = false)
     private String firstName;
 
     @NotNull
-    @Size(min = 3, message = "min l is 3")
+    @Size(min = 3, message = "LastName must be at least 3 character length")
     @Column(name = FLD_LAST_NAME, nullable = false)
     private String lastName;
 
     @NotNull
     @Email
-    @Column(name = FLD_MAIL, nullable = false)
+    @Column(name = FLD_MAIL, unique = true)
     private String mail;
 
     @Transient
     private String fullName;
 
+    public String getFullName() {
+        return firstName + ' ' + lastName;
+    }
+
+    public void setFullName(String fn) {
+        if (fn==null || !fn.contains(" "))
+            return;
+
+        String parts[]=fn.split(" ");
+        firstName=parts[0];
+        lastName=parts[1];
+    }
+
     @ElementCollection
-    @JoinTable(name = FLD_AUTHORITY,
-            joinColumns = {@JoinColumn(name = FLD_USERNAME)})
+    @JoinTable(
+            name = "authorities",
+            joinColumns = {@JoinColumn(name = "username")}
+    )
     @Column(name = FLD_AUTHORITY)
     private Set<String> roles;
 
     @Column(name = FLD_ACTIVE)
     private Boolean active;
-
-    public void setFullName(String fn) {
-        if (fn==null || fn.isEmpty())
-            return;
-
-        String parts[] = fn.split(" ");
-        setFirstName(parts[0]);
-        setLastName(parts[1]);
-    }
-
-    public  String getFullName() {
-        return firstName + " " + lastName;
-    }
-
 }
+

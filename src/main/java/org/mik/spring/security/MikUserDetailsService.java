@@ -13,18 +13,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MikUserDetailsService implements UserDetailsService {
 
+    private MikUserRepository userCredentionalRepository;
+    private MikUserDetailsMapper usersDetailsMapper;
 
-    private MikUserDetailsMapper mapper;
-    private MikUserRepository repository;
-
-    public MikUserDetailsService(@Autowired MikUserDetailsMapper mapper, @Autowired MikUserRepository repository) {
-        this.mapper = mapper;
-        this.repository = repository;
+    public MikUserDetailsService(@Autowired MikUserRepository userCredentionalRepository,
+                                 @Autowired MikUserDetailsMapper usersDetailsMapper) {
+        this.userCredentionalRepository = userCredentionalRepository;
+        this.usersDetailsMapper = usersDetailsMapper;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MikUser usr=this.repository.findByUserName(username);
-        return mapper.toUserDetails(usr);
+        MikUser usr=userCredentionalRepository.findByUserName(username);
+        return usersDetailsMapper.toUserDetails(usr);
     }
 }

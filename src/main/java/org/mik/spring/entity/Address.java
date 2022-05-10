@@ -14,29 +14,30 @@ import javax.validation.constraints.Size;
 @ToString(callSuper = false)
 @NoArgsConstructor
 public class Address {
-
     public static final String FLD_ZIP="zip";
     public static final String FLD_CITY="city";
     public static final String FLD_STREET="street";
     public static final String FLD_NUMBER="number";
 
     @NotNull
-    @Size(min = 4, message = "ml n 4")
+    @Size(min = 4, message = "ZIP must be at least 4 character length")
     @Column(name = FLD_ZIP, nullable = false)
     private String zip;
 
     @NotNull
-    @Size(min = 4, message = "ml n 4")
+    @Size(min = 4, message = "City must be at least 4 character length")
     @Column(name = FLD_CITY, nullable = false)
     private String city;
 
     @NotNull
-    @Size(min = 4, message = "ml n 4")
+    @Size(min = 4, message = "Street must be at least 4 character length")
     @Column(name = FLD_STREET, nullable = false)
     private String street;
 
     @NotNull
-    @Size(min = 4, message = "ml n 4")
+    @Size(min = 4, message = "Number must be at least 4 character length")
     @Column(name = FLD_NUMBER, nullable = false)
     private String number;
+
+
 }

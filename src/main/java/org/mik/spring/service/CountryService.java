@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class CountryService {
@@ -33,41 +33,27 @@ public class CountryService {
         return this.repository.save(c);
     }
 
-    public Page<Country> getAllCountries(Pageable page) {
-        return this.repository.findAll(page);
+    public List<Country> getAllCountries() {
+        return this.repository.findAll();
+    }
+
+    public Page<Country> getAllCountries(Pageable pageable) {
+        return this.repository.findAll(pageable);
     }
 
     public Country saveCountry(Country c) {
         if (c.getId()!=null) {
-            Country rc= repository.getById(c.getId());
-            if(rc==null)
-                return repository.save(c);
-
+            Country rc = this.repository.getById(c.getId());
+            if (rc==null)
+                return this.repository.save(c);
             rc.setName(c.getName());
             rc.setSign(c.getSign());
-            return repository.save(c);
+            return this.repository.save(rc);
         }
-        return c==null ? null : repository.save(c);
+        return c==null ? null : this.repository.save(c);
     }
 
-    public void deleteCountry(Country c) {
-        repository.delete(c);
+    public void delete(Country c) {
+        this.repository.delete(c);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import javax.validation.constraints.Size;
 @ToString
 @Entity
 @Table(name = Country.TBL_NAME)
+@SuperBuilder
 public class Country extends AbstractEntity<Long> {
     public static final String TBL_NAME="country";
     public static final String FLD_NAME="name";

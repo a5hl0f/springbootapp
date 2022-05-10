@@ -12,19 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MikUserDetailPasswordService implements UserDetailsPasswordService {
 
-    private MikUserRepository userRepository;
-    private MikUserDetailsMapper mapper;
+    private MikUserRepository mikUserRepository;
+    private MikUserDetailsMapper mikUserDetailsMapper;
 
-    public MikUserDetailPasswordService(@Autowired MikUserRepository userRepository, @Autowired MikUserDetailsMapper mapper) {
-        this.userRepository = userRepository;
-        this.mapper = mapper;
+    public MikUserDetailPasswordService(@Autowired MikUserRepository mikUserRepository,
+                                        @Autowired MikUserDetailsMapper mikUserDetailsMapper) {
+        this.mikUserRepository = mikUserRepository;
+        this.mikUserDetailsMapper = mikUserDetailsMapper;
     }
 
     @Override
     public UserDetails updatePassword(UserDetails user, String newPassword) {
-        MikUser usr= userRepository.findByUserName(user.getUsername());
+        MikUser usr=mikUserRepository.findByUserName(user.getUsername());
         usr.setPassword(newPassword);
-        return mapper.toUserDetails(usr);
+        return mikUserDetailsMapper.toUserDetails(usr);
     }
-
 }

@@ -16,9 +16,9 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Entity
-@Table(name = Company.TBL_NAME)
 @DiscriminatorValue("company")
 @SuperBuilder
+@Table(name = Company.TBL_NAME)
 public class Company extends Client {
 
     public static final String TBL_NAME="company";

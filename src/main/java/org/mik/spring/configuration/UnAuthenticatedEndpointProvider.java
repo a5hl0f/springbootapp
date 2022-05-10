@@ -10,8 +10,8 @@ public class UnAuthenticatedEndpointProvider {
         "/actuator/**",
         "/css/**",
         "/images/**",
-        "/js/**"
-
+        "/js/**",
+        "/h2-console/**"
     };
 
     public String[] getUnAuthenticated() {

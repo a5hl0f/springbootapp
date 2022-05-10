@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MikUserDetailsMapper {
 
-    UserDetails toUserDetails(MikUser user) {
-        return User.withUsername(user.getUserName())
-                .password(user.getPassword())
-                .roles(user.getRoles().toArray(String[]::new))
+    UserDetails toUserDetails(MikUser usr) {
+        return User.withUsername(usr.getUserName())
+                .password(usr.getPassword())
+                .roles(usr.getRoles().toArray(String[]::new))
                 .build();
     }
 }
